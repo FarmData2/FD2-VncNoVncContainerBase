@@ -1,8 +1,8 @@
 # Build and push the multi-architectrue images.
 
 # Modify the following variables as appropraite when building new base inmages.
-DOCKER_HUB_USER="braughtg"
-IMAGE="vnc-novnc-base"
+DOCKER_HUB_USER="farmdata2"
+IMAGE="fd2-vnc-novnc-base"
 TAG="1.2.0"
 PLATFORMS=linux/amd64,linux/arm64
 
