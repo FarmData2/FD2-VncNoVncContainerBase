@@ -17,10 +17,10 @@ vncserver \
 # Check if the .contconf/launch.bash script exists and if it does
 # then run it here.  This allows images that use this as a base
 # to insert a script that will run on startup.
-if [ -f /home/fd2/.contconf/launch.bash ];
+if [ -f /home/fd2dev/.contconf/launch.bash ];
 then
   echo "Running launch.bash"
-  source /home/fd2/.contconf/launch.bash
+  source /home/fd2dev/.contconf/launch.bash
 fi
 
 sleep infinity
