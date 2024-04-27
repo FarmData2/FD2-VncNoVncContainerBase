@@ -135,8 +135,10 @@ RUN git config --global credential.helper store \
  && echo "source /usr/share/bash-completion/completions/git" >> .bashrc
 
 # Install some useful VSCodium extensions
-RUN codium --install-extension streetsidesoftware.code-spell-checker \
-  && codium --install-extension bierner.markdown-preview-github-styles
+# This fails with newer versions of codium... so we will rely on 
+# projects to specify the extensions they need in .vscode/extensions.json
+#RUN codium --install-extension streetsidesoftware.code-spell-checker \
+#  && codium --install-extension bierner.markdown-preview-github-styles
 
 # Stuff to reduce image size.
 USER root

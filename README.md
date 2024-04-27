@@ -13,6 +13,11 @@ To build this image locally for testing:
 
 To build the multi architecture image and push it to docker hub:
 ```
+./build.bash -p
+```
+
+To build the multi architecture image without pushing it to docker hub:
+```
 ./build.bash
 ```
 
