@@ -6,26 +6,28 @@ IMAGE="fd2-vnc-novnc-base"
 TAG="1.3.0"
 PLATFORMS=linux/amd64,linux/arm64
 
-# Check for the local build flag -d
 LOCAL_BUILD=0
-getopts 'd' opt 2> /dev/null
-if [ "$opt" == "d" ];
-then 
-  LOCAL_BUILD=1
-fi
-
-# Check if the multi architecture imaage should be pushed.
-getopts 'p' opt 2> /dev/null
-if [ "$opt" == "p" ];
-then 
-  PUSH=1
-fi
+PUSH=0
+while getopts ":dp:" opt
+do
+  case $opt in
+    d) LOCAL_BUILD=1;;
+    p) PUSH=1;;
+    *) echo "Invalid option: -$opt";;
+  esac
+done
 
 # Only check the login and make the builder if we are pushing the images.
 if [ "$LOCAL_BUILD" = "0" ] && [ "$PUSH" = "1" ];
 then
   # Check that the DockerHub user identified above is logged in.
-  LOGGED_IN=$(docker-credential-desktop list | grep "$DOCKER_HUB_USER" | wc -l | cut -f 8 -d ' ')
+  if [ "$(which docker-credential-desktop)" != "" ];
+  then
+    LOGGED_IN=$(docker-credential-desktop list | grep "$DOCKER_HUB_USER" | wc -l | cut -f 8 -d ' ')
+  else
+    LOGGED_IN=$(docker system info | grep -E 'Username|Registry' | grep "$DOCKER_HUB_USER" | wc -l | cut -f 8 -d ' ')
+  fi
+
   if [ "$LOGGED_IN" == "0" ];
   then
     echo "Please log into Docker Hub as $DOCKER_HUB_USER before building images."
